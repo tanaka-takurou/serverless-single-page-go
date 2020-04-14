@@ -10,10 +10,6 @@ import (
 	"github.com/aws/aws-lambda-go/lambda"
 )
 
-type MyEvent struct {
-	Name string `json:"name"`
-}
-
 type Response events.APIGatewayProxyResponse
 
 func HandleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (Response, error) {
