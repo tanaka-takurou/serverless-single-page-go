@@ -26,11 +26,11 @@ Simple kit for serverless single web page using AWS Lambda.
 
 ##### Image
 - Add image file into static/img/
-- Edit templates/index.html like as 'sample_jpg'.
-- Edit create_template.sh like as 'sample_jpg'. (add three lines)
+- Edit templates/index.html like as 'sample.jpg'.
 
 ### Deploy
 Open scripts/deploy.sh and edit 'your_function_name' first.
+
 Then run this command.
 
 ```
