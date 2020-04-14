@@ -10,19 +10,28 @@ import (
 	"github.com/aws/aws-lambda-go/lambda"
 )
 
+type PageData struct {
+	Title string
+}
+
 type Response events.APIGatewayProxyResponse
 
 func HandleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (Response, error) {
+	tmp := template.New("tmp")
+	var dat PageData
+	q := request.QueryStringParameters
+	page := q["page"]
 	funcMap := template.FuncMap{
 		"safehtml": func(text string) template.HTML { return template.HTML(text) },
 	}
-	tmp := template.Must(template.New("").Funcs(funcMap).ParseFiles("templates/index.html", "templates/view.html"))
 	buf := new(bytes.Buffer)
 	fw := io.Writer(buf)
-	dat := struct {
-		Title string
-	}{
-		Title: "ServerlessSinglePage",
+	if page == "test" {
+		tmp = template.Must(template.New("").Funcs(funcMap).ParseFiles("templates/test.html", "templates/view.html"))
+		dat.Title = "Test"
+	} else {
+		tmp = template.Must(template.New("").Funcs(funcMap).ParseFiles("templates/index.html", "templates/view.html"))
+		dat.Title = "ServerlessSinglePage"
 	}
 	if err := tmp.ExecuteTemplate(fw, "base", dat); err != nil {
 		log.Fatal(err)
