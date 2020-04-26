@@ -36,3 +36,6 @@ Then run this command.
 ```
 $ sh scripts/deploy.sh
 ```
+
+### Example
+[README](https://github.com/tanaka-takurou/serverless-single-page-go/tree/master/example)
