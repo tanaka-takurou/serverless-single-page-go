@@ -1,0 +1,55 @@
+{{define "main.css"}}.last.container {
+  margin-bottom: 300px !important;
+}
+h1.ui.center.header {
+  margin-top: 3em;
+}
+h2.ui.center.header {
+  margin: 4em 0em 2em;
+}
+h3.ui.center.header {
+  margin-top: 2em;
+  padding: 2em 0em;
+}
+.ui.footer.segment {
+  margin: 5em 0em 0em;
+  padding: 5em 0em;
+}
+.ui.container.vmargin {
+  margin: 5rem 0em calc(2rem - 0.14285714em );
+}
+{{end}}
+{{define "main.js"}}$(document).ready(function() {
+
+  var
+    $headers     = $('body > h1'),
+    $header      = $headers.first(),
+    ignoreScroll = false,
+    timer;
+
+  $(window)
+    .on('resize', function() {
+      clearTimeout(timer);
+      $headers.visibility('disable callbacks');
+
+      $(document).scrollTop( $header.offset().top );
+
+      timer = setTimeout(function() {
+        $headers.visibility('enable callbacks');
+      }, 500);
+    });
+  $headers
+    .visibility({
+      once: false,
+      checkOnRefresh: true,
+      onTopPassed: function() {
+        $header = $(this);
+      },
+      onTopPassedReverse: function() {
+        $header = $(this);
+      }
+    });
+});
+{{end}}
+{{define "favicon"}}data:image/x-icon;base64,AAABAAEAICAAAAEAIAAoEQAAFgAAACgAAAAgAAAAQAAAAAEAIAAAAAAAAAAAABMLAAATCwAAAAAAAAAAAADCv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8G+uv/Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8PAvP/Avbn/w8C8/8C9uf/Avbn/wL25/8G+uv/Bvrr/wb66/8G+uv/Bvrr/wb66/8G+uv/Bvrr/wb66/8G+uv/Bvrr/wb66/8G+uv/Bvrr/wb66/8G+uv/Bvrr/wb66/8G+u//Gw7//wr+7/8K/u//DwLz/wr+7/8K/u//DwLz/wL25/8XCvv/Ewb3/vru3/7+8uP+/vLj/vru3/726tv+9urb/vbq2/726tv+9urb/vbq2/726tv+9urb/vbq2/726tv+9urb/vbq2/726tv+9urb/vbq2/726tv+9urb/vbq2/767t/+9urb/v7y4/8K/u//Cv7v/wr+7/8K/u//Avbn/xMG9/726tv++u7f/vru3/767t/+/vLj/wL25/8C9uf/Avbn/wL25/8C9uf/Avbn/wL25/8C9uf/Avbn/wL25/8C9uf/Avbn/wL25/8C9uf/Avbn/wL25/7+8uP/Avbn/w8C8/7u4tP+8ubX/w8C8/8K/u//Cv7v/xMG9/726t//HxMD/3NnV/9nW0v/Z1tL/2dbS/9jV0f/Y1dH/2NXR/9jV0f/Y1dH/2NXR/9jV0f/Y1dH/2NXR/9jV0f/Y1dH/2NXR/9jV0f/Y1dH/2NXR/9jV0f/Y1dH/2NXR/9jV0f/a19P/39zY/9TRzf/Ewb3/wb67/8K/u//Bvrr/ubay/8bDv//r6OT/6+jk/+7r5//w7en/7uvn/+3q5v/u6+f/7erm/+3q5v/t6ub/7erm/+3q5v/t6ub/7erm/+3q5v/t6ub/7erm/+3q5v/u6+f/6+jk/+zp5f/v7Oj/7+zo/+fk4P/08e3/6+jk/8vIxP/Avbn/w8C8/8K/u//Avbn/ycbC/+jl4f/p5uH/6OXh/+/s6P/v7Oj/6+fj/+zo5P/s6eT/6+jk/+vo5P/r6OT/6+jk/+vo5f/s6OT/6+jl/+vo5P/r6OT/6+jk/+zp5f/o5eH/6ebi/+zp5f/u6+f/8e7q//Dt6f/p5+L/0M3J/7+8uP/DwLz/vru3/8PAvP/Kx8P/5uPf/+/s6P/o5eH/0s/L/9LPy//Rzsr/0M3J/9DNyf/Qzcn/0M3J/9DNyf/Qzcn/z83J/9DNyf/Pzcn/0M3J/9DNyf/Qzcn/0c7K/83Kxv/PzMj/0M3J/9bTz//l4t7/6+jk/+jl4f/PzMj/v7y5/8PAvP+8ubX/wL25/8bDv//h3tr/7erm/+bj3//Cv7v/vLm1/8K/u//Bvrr/wr+7/8PAvP/Cv7v/wr+7/8K/u//DwLz/w8C8/8PAvP/CwLv/wr+7/8C9uf/Bvrr/vbq2/767t//Ewb3/wb66/9XSzv/r6OT/6ufj/87Lx/+/vLn/w8C8/8K/u/+/vLn/xcK+/+bj3//v7Oj/393Y/8XCvv+/vLj/1dLO/+Dd2f/i39v/4+Dc/+Lf2//i39v/4d7a/9/d2P/f3Nj/39zY/+He2v/g3dn/4N3Z/+Pg3P/k4d3/yMXB/8G+u//Bvrr/2NXR/+3q5v/o5eH/zsvI/8C9uf/DwLz/wr+7/8C9uf/Fwr7/5uPf//Dt6f/f3Nj/xcK+/726tv/U0c3/7erm//Hu6v/q5+P/6ebi/+nm4v/p5uL/6ufj/+rn4//q5+P/7Onl/+bj3//u6+f/7Onl/9XSzv+/vLj/vru3/8K/u//Y1dL/7erm/+jl4f/Oy8f/wL25/8PAvP/Cv7v/wL25/8XBvv/m49//8O3p/97b1//Fwr7/v7y4/8XCvv/e29f/6+jk/+bj3//k4d3/5OHd/+bj3//s6eX/7Onl/+zp5f/r6OT/6OXh/+jl4f/W08//wr+7/8K/u//Bvrr/vru3/9jV0f/t6ub/6OXh/87Lx//Avbn/w8C8/8G+uv+/vLj/xsO//+fk4P/w7en/3tvX/8XCvv+/vLj/v7y4/8rHw//j4Nz/6ufj/+vo5P/r6OT/6ufj/+zp5f/u6+f/7erm/+rn4//u6+f/3NnV/8bDv//Cvrv/xcK+/8PAvP++u7f/2dbS/+3q5v/o5eH/z8zI/7+8uf/DwLz/wL25/7+8uP/HxMD/6OXh//Dt6f/f3Nj/w8C8/767t//JxsL/wr+7/9fU0P/t6ub/8O3p/+7r5//t6ub/6ufj/83Kxv/l4t7/+PXx/+Dd2f/Avbn/vLm1/8K/u//Cv7v/wr+7/8G+uv/Z1tL/7Onl/+jl4f/PzMj/v7y4/8PAvP/Avbn/v7y4/8fEwP/o5eH/8O3p/9/c2P/DwLz/xMG9/8bDv//DwL3/xMG9/+He2v/r6OT/7Onl//Dt6f/g3dn/tLGt/8vIxP/h3tr/xsPA/7+8uP++u7f/v7y4/8PAvP/Cv7v/wL26/9nW0v/s6eb/6OXh/8/MyP+/vLj/w8C8/8C9uf+/vLj/x8TA/+jl4f/w7en/3tvX/8TBvf+/vLn/wL25/8PAvP/Avbn/y8jE/93a1v/s6eX/7erm/9DNyf/Bvrr/wr+7/767t/+5trL/y8jE/9HOyv/Cv7v/wL25/8K/u//Bvrr/2dbS/+zp5f/o5eH/z8zI/7+8uP/DwLz/wL25/7+8uP/HxMD/5+Tg//Hu6v/f3Nj/wr+7/7+8uP/DwLz/wb67/8G+uv/DwLz/zsvH/+nm4v/V0s7/vru3/8TBvf/Ewb3/xcK+/8rHw//h3tr/8u/r/+Dd2f/Dwb3/vbq3/8C9uf/Z1tL/7erm/+jl4f/PzMj/v7y4/8PAvP/Avbn/v7y4/8fEwP/n5OD/8e7q/+Dd2f/Cv7v/wb66/8PAvP/Cv7v/wb66/8G+uv/Bvrr/yMXB/7+8uP+9u7f/wr+7/8O/vP/Cv7v/29jU/+3p5f/v7Oj/8/Ds/9TRzf+/vLj/vLm1/9nW0v/t6ub/6OXh/8/MyP+/vLj/w8C8/8C9uf+/vLj/x8TA/+fk4P/x7ur/39zY/8K/u//Bvrr/w8C8/8K/u//Cv7v/xcK+/8PAvP++u7f/w8C8/8C9uf/Avbn/x8TA/8K/u//X1ND/6ebi/+fk4P/p5uL/z8zI/767t/++u7f/2tfT/+zp5f/o5eH/0M3J/7+8uP/DwLz/wL25/768uP/HxMD/5+Tg//Lv6//i39v/w8C8/8G+uv/Cv7v/wb66/8K/u//Bvrr/wr+7/8fEwP/Cv7v/v7y4/8C9uf/HxMD/v7y4/8PAvP/Sz8v/29jU/9HOyv+8ubX/vLm1/8K/u//Z1tL/7urm/+jl4f/MycX/v7y4/8PAvP/Bvrr/vLm1/8bDv//m49//7uvn/+He2v++u7f/vLm1/7+8uP++u7f/vru3/726tv++u7f/vru3/767t/+9urb/vbq2/726tv+8ubX/vLm1/7y5tf+9urb/wL26/8G+uv/Cv7v/v7y4/9TRzf/v7Oj/5eLe/8nGwv/Avbn/w8C8/8G+uv+8ubX/xsO//+fk4P/u6+f/6ufj/9vY1P/a19P/29fU/9rX0//a19P/29fU/9rX0//a19P/2tfT/9vY1P/b2NT/29fU/9vY1P/b2NT/29jU/9rX0//d2tX/3tvX/97b1//d2tb/4+Dc/+rn4//m49//zMnF/7+8uP/DwLz/wb66/7y5tf/HxMD/6OXh/+jl4f/q5+P/7uvn/+7r5//t6ub/7erm/+3q5v/t6ub/7erm/+3q5v/t6ub/7erm/+3q5v/t6ub/7erm/+3q5v/t6ub/7erm/+3q5v/t6ub/7erm/+7r5//p5uL/7+zo/+zp5f/Qzcn/v7u4/8PAvP/Ewr7/u7i0/8bDv//r6OT/7uvn/+rn4//r6OT/7Onl/+3q5v/t6ub/7erm/+3q5v/t6ub/7erm/+3q5v/t6ub/7erm/+3q5v/t6ub/7Onl/+zp5f/s6eX/7Onl/+zp5f/s6eX/7erm/+7r5//28+//7uvn/8nHw//Avbn/w8C8/8PAvP/Avbn/yMXB/9HPy//T0Mz/0s/L/9LPy//T0Mz/1NHN/9TRzf/U0c3/1NHN/9TRzf/U0c3/1NHN/9TRzf/U0c3/1NHN/9TRzf/U0c3/1NHN/9TRzf/U0c3/1NHN/9TRzf/T0Mz/0M3J/9bSz//MycX/wL25/8K/u//Cv7v/wr+7/7+8uP/DwLz/vbq2/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8G+uv+/vLj/wL25/726tv/Fwr7/wr+7/8K/u//DwLz/wL25/8C9uf/Ewb3/wr+7/8K/u//Cv7v/wb66/8C9uf/Avbn/wL25/8C9uf/Avbn/wL25/8C9uf/Avbn/wL25/8C9uf/Avbn/wL25/8C9uf/Avbn/wL25/8C9uf/Avbn/wL25/8K/u//Cv7v/w8C8/8G+uv/Cv7v/wr+7/8G+uv/Ewb3/wr+7/8PAvP/Bvrr/wb66/8G+uv/Cv7v/w8C8/8PAvP/DwLz/w8C8/8PAvP/DwLz/w8C8/8PAvP/DwLz/w8C8/8PAvP/DwLz/w8C8/8PAvP/DwLz/w8C8/8PAvP/DwLz/wr+7/8K/u//Cv7v/v7y4/8K/u//Cv7v/wr+7/8G+uv/Cv7v/wb66/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//DwLz/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/wr+7/8K/u//Cv7v/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+{{end}}

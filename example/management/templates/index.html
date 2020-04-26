@@ -1,0 +1,83 @@
+{{define "base"}}
+<!doctype html>
+<html>
+{{template "headtag" .}}
+  <body>
+    <div class="ui fixed inverted menu">
+      <div class="ui container">
+        <a href="/" class="item">Top</a>
+      </div>
+    </div>
+    <h1 class="ui center aligned header">Example Site</h1>
+    <div class="ui container">
+      <h3 class="ui center aligned header">Content</h3>
+      <form class="ui form" action="/?action=savecontent" method="post">
+        <div class="field">
+          <label>Title</label>
+          <div class="ui input">
+            <input type="text" name="title">
+          </div>
+        </div>
+        <p>&nbsp;</p>
+        <div class="field">
+          <label>Description</label>
+          <div class="ui input">
+            <input type="text" name="description">
+          </div>
+        </div>
+        <p>&nbsp;</p>
+        <div class="field">
+          <label>ImageTag</label>
+          <div class="ui input">
+            <input type="text" name="imagetag">
+          </div>
+        </div>
+        <p>&nbsp;</p>
+        <div class="two fields">
+          <div class="field">
+            <label>Category1</label>
+            <select class="ui fluid dropdown" name="category1">
+              <option value="0">Select Category</option>
+            {{range .CategoryList}}
+              <option value="{{.Id}}">{{.Name}}</option>
+            {{end}}
+            </select>
+          </div>
+          <div class="field">
+            <label>Category2</label>
+            <select class="ui fluid dropdown" name="category2">
+              <option value="0">Select Category</option>
+            {{range .CategoryList}}
+              <option value="{{.Id}}">{{.Name}}</option>
+            {{end}}
+            </select>
+          </div>
+        </div>
+        <button class="ui teal button" type="submit">
+          Save
+        </button>
+      </form>
+      <div class="ui divider"></div>
+      <h3 class="ui center aligned header">Category</h3>
+      <form class="ui form" action="/?action=savecategory" method="post">
+        <div class="field">
+          <label>CategoryName</label>
+          <div class="ui input">
+            <input type="text" name="categoryname">
+          </div>
+        </div>
+        <button class="ui teal button" type="submit">
+          Save
+        </button>
+      </form>
+      <div class="ui divider"></div>
+      <h3 class="ui center aligned header">Deploy</h3>
+      <a href="/?action=deploy">
+        <button class="ui primary button">
+          Deploy
+        </button>
+      </a>
+    </div>
+  </body>
+</html>
+{{end}}
