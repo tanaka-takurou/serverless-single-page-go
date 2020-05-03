@@ -36,12 +36,20 @@
 {{ if eq $curr . }}
           class="active item"
 {{ end }}
-{{ if ne $curr . }}
+{{ if eq 0 . }}
+          class="item"
+{{ end }}
+{{ if and (ne $curr .) (ne 0 .) }}
           class="item"
           href="/?page={{ . }}"
 {{ end }}
           >
+{{ if ne 0 . }}
           {{ . }}
+{{ end }}
+{{ if eq 0 . }}
+          ...
+{{ end }}
         </a>
 {{ end }}
 {{ if gt $length 1 }}

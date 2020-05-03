@@ -73,13 +73,13 @@ func HandleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 			tmp = template.Must(template.New("").Funcs(funcMap).ParseFiles("templates/index.html", "templates/view.html", "templates/header.html", "templates/footer.html", "templates/pager.html"))
 			dat.Title = baseTitle + page
 			dat.Page = pageNumber
-			dat.PageList = getRange(maxPage)
+			dat.PageList = getPageList(pageNumber, maxPage)
 			dat.ContentList = getContentRange(pageNumber, maxContentPerPage, constant.ContentCount, constant.ContentList)
 		} else {
 			tmp = template.Must(template.New("").Funcs(funcMap).ParseFiles("templates/index.html", "templates/view.html", "templates/header.html", "templates/footer.html", "templates/pager.html"))
 			dat.Title = baseTitle
 			dat.Page = 1
-			dat.PageList = getRange(maxPage)
+			dat.PageList = getPageList(1, maxPage)
 			dat.ContentList = getContentRange(1, maxContentPerPage, constant.ContentCount, constant.ContentList)
 		}
 	}
@@ -108,10 +108,28 @@ func contains(s []string, t string) bool {
 	return false
 }
 
-func getRange(max int) []int {
+func getPageList(current int, max int) []int {
 	var res []int
-	for i := 1; i <= max; i++ {
+	pagerWidth := 2
+	i := 1
+	for {
+		if i > max {
+			break
+		}
+		if i != 1 && i != max {
+			if i < current - pagerWidth {
+				res = append(res, 0)
+				i = current - pagerWidth
+				continue
+			}
+			if i > current + pagerWidth {
+				res = append(res, 0)
+				i = max
+				continue
+			}
+		}
 		res = append(res, i)
+		i++
 	}
 	return res
 }
