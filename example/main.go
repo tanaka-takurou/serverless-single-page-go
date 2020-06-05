@@ -7,6 +7,7 @@ import (
 	"bytes"
 	"context"
 	"strconv"
+	"strings"
 	"io/ioutil"
 	"html/template"
 	"encoding/json"
@@ -41,9 +42,16 @@ func HandleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 	baseTitle := "Example Site "
 	tmp := template.New("tmp")
 	var dat PageData
+	p := request.PathParameters
 	q := request.QueryStringParameters
-	page := q["page"]
-	category := q["category"]
+	page := extractPathParameter(p["proxy"], "page")
+	category := extractPathParameter(p["proxy"], "category")
+	if len(page) == 0 {
+		page = q["page"]
+	}
+	if len(category) == 0 {
+		category = q["category"]
+	}
 	funcMap := template.FuncMap{
 		"safehtml": func(text string) template.HTML { return template.HTML(text) },
 		"add": func(a, b int) int { return a + b },
@@ -150,6 +158,13 @@ func getCategoryContent(idList []int, data []ContentData) []ContentData {
 		res = append(res, data[i-1])
 	}
 	return res
+}
+
+func extractPathParameter(proxyPathParameter string, target string) string {
+	if len(proxyPathParameter) > 0 && strings.HasPrefix(proxyPathParameter, target + "/") {
+		return strings.Replace(proxyPathParameter, target + "/", "", 1)
+	}
+	return ""
 }
 
 func main() {
