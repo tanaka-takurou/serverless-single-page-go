@@ -67,7 +67,7 @@ func HandleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 	maxContentPerPage := 10
 	maxPage := int(math.Ceil(float64(constant.ContentCount)/float64(maxContentPerPage)))
 	if contains(constant.CategoryList, category) {
-		tmp = template.Must(template.New("").Funcs(funcMap).ParseFiles("templates/index.html", "templates/view.html", "templates/header.html", "templates/footer.html", "templates/pager.html"))
+		tmp = template.Must(template.New("").Funcs(funcMap).ParseFiles("templates/index.html", "templates/view.html", "templates/header.html", "templates/footer.html", "templates/pager.html", "templates/button.html"))
 		dat.Title = baseTitle + category
 		dat.Page = 1
 		dat.PageList = []int{}
@@ -78,13 +78,13 @@ func HandleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 			pageNumber, _ = strconv.Atoi(page)
 		}
 		if pageNumber > 1 && pageNumber <= maxPage {
-			tmp = template.Must(template.New("").Funcs(funcMap).ParseFiles("templates/index.html", "templates/view.html", "templates/header.html", "templates/footer.html", "templates/pager.html"))
+			tmp = template.Must(template.New("").Funcs(funcMap).ParseFiles("templates/index.html", "templates/view.html", "templates/header.html", "templates/footer.html", "templates/pager.html", "templates/button.html"))
 			dat.Title = baseTitle + page
 			dat.Page = pageNumber
 			dat.PageList = getPageList(pageNumber, maxPage)
 			dat.ContentList = getContentRange(pageNumber, maxContentPerPage, constant.ContentCount, constant.ContentList)
 		} else {
-			tmp = template.Must(template.New("").Funcs(funcMap).ParseFiles("templates/index.html", "templates/view.html", "templates/header.html", "templates/footer.html", "templates/pager.html"))
+			tmp = template.Must(template.New("").Funcs(funcMap).ParseFiles("templates/index.html", "templates/view.html", "templates/header.html", "templates/footer.html", "templates/pager.html", "templates/button.html"))
 			dat.Title = baseTitle
 			dat.Page = 1
 			dat.PageList = getPageList(1, maxPage)

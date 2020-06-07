@@ -2,6 +2,7 @@ package controller
 
 import (
 	"log"
+	"sort"
 	"strconv"
 	"os/exec"
 	"net/http"
@@ -13,6 +14,7 @@ func HttpHandler(w http.ResponseWriter, request *http.Request){
 	if err != nil {
 		panic(err.Error())
 	}
+	sort.Slice(categoryList, func(i, j int) bool { return categoryList[i].Name < categoryList[j].Name })
 	q := request.URL.Query()
 	if q != nil && q["action"] != nil {
 		if q["action"][0] == "deploy" {
