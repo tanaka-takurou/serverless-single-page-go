@@ -19,6 +19,7 @@ type PageData struct {
 	Page int
 	PageList []int
 	Title string
+	SiteMapHeadTag string
 	ContentList []ContentData
 }
 
@@ -41,9 +42,11 @@ type Response events.APIGatewayProxyResponse
 func HandleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (Response, error) {
 	baseTitle := "Example Site "
 	tmp := template.New("tmp")
+	contentType := "text/html"
 	var dat PageData
 	p := request.PathParameters
 	q := request.QueryStringParameters
+	r := request.Resource
 	page := extractPathParameter(p["proxy"], "page")
 	category := extractPathParameter(p["proxy"], "category")
 	if len(page) == 0 {
@@ -66,7 +69,11 @@ func HandleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 	json.Unmarshal(jsonString, constant)
 	maxContentPerPage := 10
 	maxPage := int(math.Ceil(float64(constant.ContentCount)/float64(maxContentPerPage)))
-	if contains(constant.CategoryList, category) {
+	dat.SiteMapHeadTag = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+	if r == "/sitemap" || p["proxy"] == "sitemap" {
+		contentType = "application/xml"
+		tmp = template.Must(template.New("").Funcs(funcMap).ParseFiles("templates/sitemap.xml"))
+	} else if contains(constant.CategoryList, category) {
 		tmp = template.Must(template.New("").Funcs(funcMap).ParseFiles("templates/index.html", "templates/view.html", "templates/header.html", "templates/footer.html", "templates/pager.html", "templates/button.html"))
 		dat.Title = baseTitle + category
 		dat.Page = 1
@@ -101,7 +108,7 @@ func HandleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 		IsBase64Encoded: false,
 		Body:            string(buf.Bytes()),
 		Headers: map[string]string{
-			"Content-Type": "text/html",
+			"Content-Type": contentType,
 		},
 	}
 	return res, nil
