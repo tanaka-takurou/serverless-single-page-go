@@ -5,9 +5,9 @@ import (
 	"log"
 	"math"
 	"bytes"
+	"regexp"
 	"context"
 	"strconv"
-	"strings"
 	"io/ioutil"
 	"html/template"
 	"encoding/json"
@@ -47,8 +47,7 @@ func HandleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 	p := request.PathParameters
 	q := request.QueryStringParameters
 	r := request.Resource
-	page := extractPathParameter(p["proxy"], "page")
-	category := extractPathParameter(p["proxy"], "category")
+	category, page := extractCategoryAndPage(p["proxy"])
 	if len(page) == 0 {
 		page = q["page"]
 	}
@@ -167,11 +166,21 @@ func getCategoryContent(idList []int, data []ContentData) []ContentData {
 	return res
 }
 
-func extractPathParameter(proxyPathParameter string, target string) string {
-	if len(proxyPathParameter) > 0 && strings.HasPrefix(proxyPathParameter, target + "/") {
-		return strings.Replace(proxyPathParameter, target + "/", "", 1)
+func extractCategoryAndPage(proxyPathParameter string) (string, string) {
+	if len(proxyPathParameter) > 0 {
+		res := regexp.MustCompile("[/]").Split(proxyPathParameter, -1)
+		if len(res) > 0 {
+			if res[0] == "category" {
+				if len(res) > 2 && res[2] == "page" {
+					return res[1], res[3]
+				}
+				return res[1], ""
+			} else if res[0] == "page" {
+				return "", res[1]
+			}
+		}
 	}
-	return ""
+	return "", ""
 }
 
 func main() {
