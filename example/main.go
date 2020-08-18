@@ -99,8 +99,6 @@ func HandleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 	}
 	if e := tmp.ExecuteTemplate(fw, "base", dat); e != nil {
 		log.Fatal(e)
-	} else {
-		log.Print("Event received.")
 	}
 	res := Response{
 		StatusCode:      200,
