@@ -35,15 +35,13 @@ func HandleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 	}
 	if err := tmp.ExecuteTemplate(fw, "base", dat); err != nil {
 		log.Fatal(err)
-	} else {
-		log.Print("Event received.")
 	}
 	res := Response{
 		StatusCode:      200,
 		IsBase64Encoded: false,
 		Body:            string(buf.Bytes()),
 		Headers: map[string]string{
-			"Content-Type":           "text/html",
+			"Content-Type": "text/html",
 		},
 	}
 	return res, nil

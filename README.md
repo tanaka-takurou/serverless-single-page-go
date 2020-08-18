@@ -8,7 +8,7 @@ Simple kit for serverless single web page using AWS Lambda.
 
 ## Requirements
 - AWS (Lambda, API Gateway)
-- aws-cli
+- aws-sam-cli
 - golang environment
 
 
@@ -29,12 +29,9 @@ Simple kit for serverless single web page using AWS Lambda.
 - Edit templates/index.html like as 'sample.jpg'.
 
 ### Deploy
-Open scripts/deploy.sh and edit 'your_function_name' first.
-
-Then run this command.
-
-```
-$ sh scripts/deploy.sh
+```bash
+make clean build
+AWS_PROFILE={profile} AWS_DEFAULT_REGION={region} make bucket={bucket} stack={stack name} deploy
 ```
 
 ### Example
