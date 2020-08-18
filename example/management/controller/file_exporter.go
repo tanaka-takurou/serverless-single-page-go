@@ -32,7 +32,7 @@ func FileExport() error {
 		tmp_categories, _ = GetCategoryListRelatedContent(m.Id)
 		var categoryTags []string
 		for _, c := range tmp_categories {
-			categoryTags = append(categoryTags, "<a href='/?category="+ GetLowerHyphenSeparatedString(c.Name) + "'>" + c.Name + "</a>\n")
+			categoryTags = append(categoryTags, "<a href='./?category="+ GetLowerHyphenSeparatedString(c.Name) + "'>" + c.Name + "</a>\n")
 		}
 		contentList = append(contentList, ContentData{m.Title, m.Description, m.Imagetag, categoryTags})
 	}

@@ -8,7 +8,7 @@ Simple kit for serverless single web page using AWS Lambda.
 
 ## Requirements
 - AWS (Lambda, API Gateway)
-- aws-cli
+- aws-sam-cli
 - golang environment
 - MySQL environment
 
@@ -20,7 +20,13 @@ Simple kit for serverless single web page using AWS Lambda.
 #### Setting
 Edit mysql-user, mysql-pass in "management/controller/db_handler.go".
 
-#### Run
+### Deploy
+```bash
+make clean build
+AWS_PROFILE={profile} AWS_DEFAULT_REGION={region} make bucket={bucket} stack={stack name} deploy
+```
+
+#### Run Management Page
 ```
 $ cd management
 $ go run main.go
