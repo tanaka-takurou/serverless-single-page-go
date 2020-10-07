@@ -1,0 +1,5 @@
+module github.com/tanaka-takurou/serverless-single-page-go
+
+go 1.15
+
+require github.com/aws/aws-lambda-go v1.19.1
