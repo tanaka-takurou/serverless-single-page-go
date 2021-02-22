@@ -4,11 +4,15 @@ import (
 	"io"
 	"log"
 	"bytes"
+	"embed"
 	"context"
 	"html/template"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 )
+
+//go:embed templates
+var templateFS embed.FS
 
 type PageData struct {
 	Title string
@@ -27,10 +31,10 @@ func HandleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 	buf := new(bytes.Buffer)
 	fw := io.Writer(buf)
 	if page == "test" {
-		tmp = template.Must(template.New("").Funcs(funcMap).ParseFiles("templates/test.html", "templates/view.html"))
+		tmp = template.Must(template.New("").Funcs(funcMap).ParseFS(templateFS, "templates/test.html", "templates/view.html"))
 		dat.Title = "Test"
 	} else {
-		tmp = template.Must(template.New("").Funcs(funcMap).ParseFiles("templates/index.html", "templates/view.html"))
+		tmp = template.Must(template.New("").Funcs(funcMap).ParseFS(templateFS, "templates/index.html", "templates/view.html"))
 		dat.Title = "ServerlessSinglePage"
 	}
 	if err := tmp.ExecuteTemplate(fw, "base", dat); err != nil {
